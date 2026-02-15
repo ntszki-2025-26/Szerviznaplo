@@ -10,7 +10,6 @@
         <form method="POST" action="{{ route('login.attempt') }}" class="space-y-6">
             @csrf
 
-            <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-200">
                     Email address
@@ -28,7 +27,6 @@
                            transition duration-200 placeholder-gray-400">
             </div>
 
-            <!-- Password -->
             <div>
                 <div class="flex items-center justify-between">
                     <label for="password" class="block text-sm font-medium text-gray-200">
@@ -52,7 +50,6 @@
                            transition duration-200 placeholder-gray-400">
             </div>
 
-            <!-- Button -->
             <button 
                 type="submit"
                 class="w-full rounded-lg bg-indigo-600 py-3 font-semibold text-white 

@@ -13,7 +13,6 @@
               class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @csrf
 
-            <!-- Username -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     Username
@@ -26,7 +25,6 @@
                     placeholder="Enter username">
             </div>
 
-            <!-- Email -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     Email
@@ -39,7 +37,6 @@
                     placeholder="Enter email">
             </div>
 
-            <!-- First Name -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     First Name
@@ -52,7 +49,6 @@
                     placeholder="First name">
             </div>
 
-            <!-- Last Name -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     Last Name
@@ -65,7 +61,6 @@
                     placeholder="Last name">
             </div>
 
-            <!-- Password -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     Password
@@ -78,7 +73,6 @@
                     placeholder="Enter password">
             </div>
 
-            <!-- Password Confirmation -->
             <div>
                 <label class="block text-sm font-medium text-gray-200">
                     Confirm Password
@@ -91,7 +85,6 @@
                     placeholder="Repeat password">
             </div>
 
-            <!-- Full width button -->
             <div class="md:col-span-2 mt-4">
                 <button type="submit"
                     class="w-full rounded-lg bg-indigo-600 py-3 font-semibold text-white

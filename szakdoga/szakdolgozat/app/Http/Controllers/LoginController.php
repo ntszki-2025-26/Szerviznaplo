@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
-    public function __invoke(Request $request): RedirectResponse
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -20,7 +21,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Hibás email vagy jelszó.',
         ])->onlyInput('email');
     }
 }

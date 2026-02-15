@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -24,8 +25,7 @@ class RegisterController extends Controller
             'email'      => $validatedData['email'],
             'first_name' => $validatedData['first_name'],
             'last_name'  => $validatedData['last_name'],
-            'password'   => bcrypt($validatedData['password']),
-        ]);
+            'password' => Hash::make($validatedData['password']),        ]);
 
         Auth::login($user);
 
