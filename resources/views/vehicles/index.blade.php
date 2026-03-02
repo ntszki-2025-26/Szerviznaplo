@@ -418,7 +418,7 @@
         <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
         <div class="topbar-divider"></div>
         <div class="breadcrumb">
-            <a href="{{ route('dashboard') }}">Dashboard</a>
+            <a href="{{ route('dashboard') }}">Irányítópult</a>
             <span>/</span>
             <span class="current">Járműveim</span>
         </div>
