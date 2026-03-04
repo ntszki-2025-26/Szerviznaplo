@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\FaultController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,14 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Járművek
+    
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
     Route::post('vehicles', [VehicleController::class, 'store'])->name('vehicles.store');
     Route::delete('vehicles/{id}', [VehicleController::class, 'destroy'])->name('vehicles.destroy');
+
+    
+    Route::get('faults', [FaultController::class, 'index'])->name('faults.index');
+    Route::post('faults', [FaultController::class, 'store'])->name('faults.store');
+    Route::delete('faults/{id}', [FaultController::class, 'destroy'])->name('faults.destroy');
 
 });

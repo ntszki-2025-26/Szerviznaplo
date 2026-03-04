@@ -387,7 +387,7 @@
         </div>
     </div>
 
-   {{-- Gyors műveletek --}}
+   
 <div class="section-title">Gyors műveletek</div>
 <div class="actions-grid">
     <a href="{{ route('vehicles.index') }}" class="action-card">
@@ -402,7 +402,7 @@
             <div class="action-desc">Új jármű regisztrálása</div>
         </div>
     </a>
-    <a href="#" class="action-card" title="Hamarosan...">
+    <a href="{{ route('faults.index') }}" class="action-card" title="Hamarosan...">
         <div class="action-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M12 9v4M12 17h.01"/>
