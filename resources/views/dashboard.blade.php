@@ -353,7 +353,7 @@
     <div class="stats-row">
         <div class="stat-card">
             <div class="stat-card-label">Járműveim</div>
-            <div class="stat-card-num">—</div>
+            <div class="stat-card-num">{{ $vehicleCount ?? '—' }}</div>
             <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M7 17H5a2 2 0 01-2-2v-4l2-5h14l2 5v4a2 2 0 01-2 2h-2"/>
                 <circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
@@ -362,7 +362,7 @@
         </div>
         <div class="stat-card">
             <div class="stat-card-label">Aktív hibák</div>
-            <div class="stat-card-num">—</div>
+            <div class="stat-card-num">{{ $faultCount ?? '—' }}</div>
             <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M12 9v4M12 17h.01"/>
                 <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -377,7 +377,7 @@
         </div>
         <div class="stat-card">
             <div class="stat-card-label">Következő időpontom</div>
-            <div class="stat-card-num">—</div>
+           <div class="stat-card-num">{{ $nextAppointmentFormatted ?? '—' }}</div>
             <svg class="stat-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <rect x="3" y="4" width="18" height="18" rx="2"/>
                 <line x1="16" y1="2" x2="16" y2="6"/>
@@ -414,7 +414,7 @@
             <div class="action-desc">Fotóval és leírással</div>
         </div>
     </a>
-    <a href="#" class="action-card" title="Hamarosan...">
+    <a href="{{ route('appointments.index') }}" class="action-card" title="Hamarosan...">
         <div class="action-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <rect x="3" y="4" width="18" height="18" rx="2"/>

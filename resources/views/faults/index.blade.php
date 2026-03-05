@@ -480,7 +480,7 @@
                         <tr>
                             <td>
                                 @if($fault->photo)
-                                    <img src="{{ Storage::url($fault->photo) }}" class="photo-thumb" alt="Fotó">
+                                    <img src="storage/{{ $fault->photo }}" class="photo-thumb" alt="Fotó">
                                 @else
                                     <div class="no-photo">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">

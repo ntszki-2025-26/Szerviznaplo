@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class FaultController extends Controller
 {
-    
+
     public function index()
     {
-      
+
         $faults = DB::table('faults')
             ->join('vehicle', 'faults.vehicle_id', '=', 'vehicle.id')
             ->where('vehicle.user_id', Auth::id())
@@ -31,40 +31,37 @@ class FaultController extends Controller
     public function store(Request $request)
     {
 
-              $validated = $request->validate([
-    'vehicle_id'     => ['required', 'integer'],
-    'description'    => ['required', 'string', 'max:50'],
-    'category'       => ['required', 'string', 'max:50'],
-    'estimated_time' => ['nullable', 'string', 'max:50'],
-]);
+        $validated = $request->validate([
+            'vehicle_id' => ['required', 'integer'],
+            'description' => ['required', 'string', 'max:50'],
+            'category' => ['required', 'string', 'max:50'],
+            'estimated_time' => ['nullable', 'string', 'max:50'],
+        ]);
+        $file = $request->file('photo');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('storage/uploads/faults'), $filename);
+        $photoPath = 'uploads/faults/' . $filename;
 
-     $photoPath = null;
-if ($request->hasFile('photo')) {
-    $file = $request->file('photo');
-    $filename = time() . '_' . $file->getClientOriginalName();
-    $file->move(public_path('uploads/faults'), $filename);
-    $photoPath = 'uploads/faults/' . $filename;
-}
 
-       
+
         $qrCode = 'FAULT-' . strtoupper(uniqid());
 
         DB::table('faults')->insert([
-            'vehicle_id'     => $validated['vehicle_id'],
-            'description'    => $validated['description'],
-            'category'       => $validated['category'],
+            'vehicle_id' => $validated['vehicle_id'],
+            'description' => $validated['description'],
+            'category' => $validated['category'],
             'estimated_time' => $validated['estimated_time'] ?? null,
-            'photo'          => $photoPath,
-            'qr_code'        => $qrCode,
+            'photo' => $photoPath,
+            'qr_code' => $qrCode,
         ]);
 
         return redirect()->route('faults.index')->with('success', 'Hiba sikeresen rögzítve!');
     }
 
-    
+
     public function destroy($id)
     {
-       
+
         $fault = DB::table('faults')
             ->join('vehicle', 'faults.vehicle_id', '=', 'vehicle.id')
             ->where('faults.id', $id)
