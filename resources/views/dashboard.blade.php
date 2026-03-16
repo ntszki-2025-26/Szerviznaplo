@@ -500,7 +500,7 @@
             </div>
             <div class="info-item">
                 <span class="info-item-label">Bejelentkezve</span>
-                <span class="info-item-val">{{ now()->format('H:i') }}</span>
+                <span class="info-item-val">{{ now()->setTimezone('Europe/Budapest')->format('H:i') }}</span>
             </div>
         </div>
     </div>
