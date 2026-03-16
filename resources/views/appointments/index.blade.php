@@ -365,7 +365,7 @@
         </div>
     </div>
 
-    {{-- TABLE --}}
+ 
     <div class="table-container">
         <div class="table-toolbar">
             <span class="table-toolbar-title">Foglalások</span>
