@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\FaultController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RepairController;
+use App\Http\Controllers\MechanicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -53,18 +55,7 @@ Route::middleware('auth')->group(function () {
             ? \Carbon\Carbon::parse($nextAppointment)->format('m. d.')
             : null;
 
-        $pendingRepairs = DB::table('repairs')
-            ->join('vehicle', 'repairs.vehicle_id', '=', 'vehicle.id')
-            ->join('status', 'repairs.status_repairs_id', '=', 'status.id')
-            ->where('vehicle.user_id', $userId)
-            ->where('status.status', 'Függőben')
-            ->select('vehicle.brand', 'vehicle.model')
-            ->get();
-
-        $pendingRepairCount = $pendingRepairs->count();
-        $pendingRepairNames = $pendingRepairs->map(fn($r) => $r->brand . ' ' . $r->model)->join(', ');
-
-        return view('dashboard', compact('vehicleCount', 'faultCount', 'nextAppointmentFormatted', 'pendingRepairCount', 'pendingRepairNames'));
+        return view('dashboard', compact('vehicleCount', 'faultCount', 'nextAppointmentFormatted'));
     })->name('dashboard');
 
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
@@ -82,5 +73,15 @@ Route::middleware('auth')->group(function () {
     Route::get('repairs', [RepairController::class, 'index'])->name('repairs.index');
     Route::post('repairs', [RepairController::class, 'store'])->name('repairs.store');
     Route::delete('repairs/{id}', [RepairController::class, 'destroy'])->name('repairs.destroy');
+
+    
+    Route::prefix('mechanic')->middleware('mechanic')->group(function () {
+        Route::get('dashboard', [MechanicController::class, 'dashboard'])->name('mechanic.dashboard');
+        Route::get('repairs', [MechanicController::class, 'repairs'])->name('mechanic.repairs');
+        Route::post('repairs/{id}/status', [MechanicController::class, 'updateStatus'])->name('mechanic.repairs.status');
+        Route::get('faults', [MechanicController::class, 'faults'])->name('mechanic.faults');
+        Route::get('appointments', [MechanicController::class, 'appointments'])->name('mechanic.appointments');
+        Route::post('appointments/{id}/status', [MechanicController::class, 'updateAppointmentStatus'])->name('mechanic.appointments.status');
+    });
 
 });

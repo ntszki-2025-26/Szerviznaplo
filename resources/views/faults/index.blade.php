@@ -379,12 +379,7 @@
                         @error('category') <span class="form-error">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Becsült javítási idő</label>
-                        <input type="text" name="estimated_time" class="form-input"
-                               placeholder="pl. 2 óra" value="{{ old('estimated_time') }}">
-                        @error('estimated_time') <span class="form-error">{{ $message }}</span> @enderror
-                    </div>
+                    
 
                     <div class="form-group full">
                         <label class="form-label">Fotó (opcionális)</label>
@@ -418,7 +413,7 @@
     </div>
 </div>
 
-{{-- OLDAL TARTALOM --}}
+
 <div class="page-wrap">
 
     <div class="page-header">
@@ -470,7 +465,6 @@
                         <th>Jármű</th>
                         <th>Leírás</th>
                         <th>Kategória</th>
-                        <th>Becsült idő</th>
                         <th>QR kód</th>
                         <th></th>
                     </tr>
