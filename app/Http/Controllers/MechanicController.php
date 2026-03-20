@@ -38,8 +38,29 @@ class MechanicController extends Controller
             ->get();
 
         $statuses = DB::table('status')->get();
+        $vehicles = DB::table('vehicle')
+            ->join('users', 'vehicle.user_id', '=', 'users.id')
+            ->select('vehicle.*', 'users.username')
+            ->get();
 
-        return view('mechanic.repairs', compact('repairs', 'statuses'));
+        return view('mechanic.repairs', compact('repairs', 'statuses', 'vehicles'));
+    }
+
+    public function storeRepair(Request $request)
+    {
+        $request->validate([
+            'vehicle_id'        => ['required', 'integer'],
+            'status_repairs_id' => ['required', 'integer'],
+            'comment'           => ['nullable', 'string', 'max:500'],
+        ]);
+
+        DB::table('repairs')->insert([
+            'vehicle_id'        => $request->vehicle_id,
+            'status_repairs_id' => $request->status_repairs_id,
+            'photos_comments'   => $request->comment ? json_encode(['comment' => $request->comment]) : null,
+        ]);
+
+        return redirect()->route('mechanic.repairs')->with('success', 'Javítás sikeresen létrehozva!');
     }
 
     public function updateStatus(Request $request, $id)

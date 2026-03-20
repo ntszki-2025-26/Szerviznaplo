@@ -140,7 +140,7 @@
                 <div class="modal-title">Státusz frissítése</div>
                 <div class="modal-subtitle" id="modalSubtitle"></div>
             </div>
-            <button class="modal-close" onclick="closeModal()">
+            <button class="modal-close" onclick="closeModal('editModal')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
         </div>
@@ -161,7 +161,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-cancel" onclick="closeModal()">Mégse</button>
+                <button type="button" class="btn-cancel" onclick="closeModal('editModal')">Mégse</button>
                 <button type="submit" class="btn-primary">Mentés</button>
             </div>
         </form>
@@ -174,6 +174,52 @@
         <div>
             <div class="page-tag">Szerelői felület</div>
             <h1 class="page-title">Összes javítás</h1>
+        </div>
+        <button class="btn-primary" onclick="openModal('addModal')" style="font-size:0.8rem;padding:0.6rem 1.25rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Javítás létrehozása
+        </button>
+    </div>
+
+    <div class="modal-backdrop" id="addModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Javítás létrehozása</div>
+                <button class="modal-close" onclick="closeModal('addModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <form method="POST" action="{{ route('mechanic.repairs.store') }}">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">Jármű *</label>
+                        <select name="vehicle_id" class="form-select" required>
+                            <option value="">— Válassz járművet —</option>
+                            @foreach($vehicles as $v)
+                                <option value="{{ $v->id }}">{{ $v->brand }} {{ $v->model }} · {{ $v->license_plate }} ({{ $v->username }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Státusz *</label>
+                        <select name="status_repairs_id" class="form-select" required>
+                            <option value="">— Válassz státuszt —</option>
+                            @foreach($statuses as $s)
+                                <option value="{{ $s->id }}">{{ $s->status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Megjegyzés</label>
+                        <textarea name="comment" class="form-textarea" placeholder="Javítás részletei..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal('addModal')">Mégse</button>
+                    <button type="submit" class="btn-primary">Létrehozás</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -251,7 +297,7 @@
                         <td><span class="status-dot {{ $sc }}">{{ $r->status_name ?? '—' }}</span></td>
                         <td><span class="comment-cell">{{ $comment }}</span></td>
                         <td>
-                            <button class="btn-edit" onclick="openModal({{ $r->id }}, '{{ $r->brand }} {{ $r->model }}', {{ $r->status_repairs_id }}, '{{ addslashes($comment === '—' ? '' : $comment) }}')">
+                            <button class="btn-edit" onclick="openEditModal({{ $r->id }}, '{{ $r->brand }} {{ $r->model }}', {{ $r->status_repairs_id }}, '{{ addslashes($comment === '—' ? '' : $comment) }}')">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                 Szerkesztés
                             </button>
@@ -269,20 +315,23 @@
 </div>
 
 <script>
-    function openModal(id, vehicle, statusId, comment) {
+    function openModal(id)  { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    function openEditModal(id, vehicle, statusId, comment) {
         document.getElementById('editForm').action = '/mechanic/repairs/' + id + '/status';
         document.getElementById('modalSubtitle').textContent = vehicle;
         document.getElementById('statusSelect').value = statusId;
         document.getElementById('commentField').value = comment;
-        document.getElementById('editModal').classList.add('open');
-    }
-
-    function closeModal() {
-        document.getElementById('editModal').classList.remove('open');
+        openModal('editModal');
     }
 
     document.getElementById('editModal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
+        if (e.target === this) closeModal('editModal');
+    });
+
+    document.getElementById('addModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal('addModal');
     });
 </script>
 

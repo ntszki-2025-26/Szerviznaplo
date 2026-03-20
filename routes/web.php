@@ -55,7 +55,19 @@ Route::middleware('auth')->group(function () {
             ? \Carbon\Carbon::parse($nextAppointment)->format('m. d.')
             : null;
 
-        return view('dashboard', compact('vehicleCount', 'faultCount', 'nextAppointmentFormatted'));
+
+        $pendingRepairs = DB::table('repairs')
+    ->join('vehicle', 'repairs.vehicle_id', '=', 'vehicle.id')
+    ->join('status', 'repairs.status_repairs_id', '=', 'status.id')
+    ->where('vehicle.user_id', $userId)
+    ->whereIn('status.status', ['Függőben', 'Folyamatban'])
+    ->select('vehicle.brand', 'vehicle.model')
+    ->get();
+
+$pendingRepairCount = $pendingRepairs->count();
+$pendingRepairNames = $pendingRepairs->map(fn($r) => $r->brand . ' ' . $r->model)->join(', ');
+
+        return view('dashboard', compact('vehicleCount', 'faultCount', 'nextAppointmentFormatted', 'pendingRepairCount', 'pendingRepairNames'));
     })->name('dashboard');
 
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
@@ -74,10 +86,10 @@ Route::middleware('auth')->group(function () {
     Route::post('repairs', [RepairController::class, 'store'])->name('repairs.store');
     Route::delete('repairs/{id}', [RepairController::class, 'destroy'])->name('repairs.destroy');
 
-    
     Route::prefix('mechanic')->middleware('mechanic')->group(function () {
         Route::get('dashboard', [MechanicController::class, 'dashboard'])->name('mechanic.dashboard');
         Route::get('repairs', [MechanicController::class, 'repairs'])->name('mechanic.repairs');
+        Route::post('repairs', [MechanicController::class, 'storeRepair'])->name('mechanic.repairs.store');
         Route::post('repairs/{id}/status', [MechanicController::class, 'updateStatus'])->name('mechanic.repairs.status');
         Route::get('faults', [MechanicController::class, 'faults'])->name('mechanic.faults');
         Route::get('appointments', [MechanicController::class, 'appointments'])->name('mechanic.appointments');
