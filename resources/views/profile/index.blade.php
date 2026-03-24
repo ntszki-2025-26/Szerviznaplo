@@ -1,246 +1,106 @@
+blade
+
 <x-layout>
-    <x-navbar>
-    </x-navbar>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;900&family=Barlow:wght@300;400;500&display=swap');
+    <x-navbar title="Profilom" />
 
-        :root {
-            --bg: #0a0a0a;
-            --surface: #121212;
-            --border: #222;
-            --accent: #5046E6;
-            --accent-hover: #7c73ff;
-            --text: #f0ede8;
-            --muted: #888;
-            --red: #c0392b;
-            --green: #27ae60;
-        }
+    <div class="max-w-[1000px] mx-auto px-8 py-12">
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Barlow', sans-serif;
-            min-height: 100vh;
-        }
-
-        .page-wrap {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .page-header {
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .page-tag {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .page-title {
-            font-family: 'Barlow Condensed';
-            font-weight: 900;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-        }
-
-        .profile-card {
-            display: flex;
-            flex-wrap: wrap;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .profile-left {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Barlow Condensed';
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: #0a0a0a;
-        }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .profile-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .profile-email {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
-        .profile-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.7rem 1.5rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-family: 'Barlow Condensed';
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            cursor: pointer;
-            border: none;
-            transition: transform 0.1s, background 0.2s;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #0a0a0a;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .btn-danger {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--muted);
-        }
-
-        .btn-danger:hover {
-            border-color: var(--red);
-            color: var(--red);
-            transform: translateY(-1px);
-        }
-
-        .vehicles-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .vehicles-card h3 {
-            margin-bottom: 1rem;
-        }
-
-        .vehicle-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .vehicle-table th,
-        .vehicle-table td {
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-        }
-
-        .vehicle-table th {
-            color: var(--muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .vehicle-table tr:hover {
-            background: var(--border);
-        }
-
-        @media (max-width: 768px) {
-            .profile-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .profile-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
-    </style>
-
-    <div class="page-wrap">
-        <div class="page-header">
-            <div class="page-tag">Profil</div>
-            <h1 class="page-title">
-                <div class="profile-name">
-                    {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
-                </div>
+        <div class="mb-10 pb-6 border-b border-[#222]">
+            <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#5046E6] mb-1">Fiók</div>
+            <h1 class="font-['Barlow_Condensed'] font-black text-[2.5rem] uppercase tracking-wide">
+                Profilom
             </h1>
         </div>
 
-        <div class="profile-card">
-            <div class="profile-left">
-                <div class="avatar">U</div>
-                <div class="profile-info">
-                    <div class="profile-name">
+        <div class="flex flex-wrap bg-[#121212] border border-[#222] rounded-lg p-8 mb-6 gap-8 items-center">
+
+            <div class="flex items-center gap-6 flex-1 min-w-[250px]">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#5046E6] to-[#7c73ff] flex items-center justify-center font-['Barlow_Condensed'] font-bold text-[1.8rem] text-[#0a0a0a] shrink-0">
+                    {{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}
+                </div>
+                <div class="flex flex-col gap-1">
+                    <div class="text-2xl font-bold">
                         {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
                     </div>
-
-                    <div class="profile-email">
+                    <div class="text-[0.85rem] text-[#888]">
                         {{ Auth::user()->email }}
+                    </div>
+                    <div class="text-[0.75rem] text-[#888] tracking-[0.1em] uppercase mt-1">
+                        {{ Auth::user()->is_admin ? 'Adminisztrátor' : 'Felhasználó' }}
                     </div>
                 </div>
             </div>
 
-            <div class="profile-actions">
-                <button type="button" class="btn btn-primary">Profil módosítása</button>
-                <button type="button" class="btn btn-danger">Fiók törlése</button>
-                <button type="button" class="btn btn-danger">Kijelentkezés</button>
+            <div class="flex gap-3 flex-wrap">
+                <button type="button"
+                    class="px-6 py-[0.7rem] rounded bg-[#5046E6] text-[#0a0a0a] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:bg-[#7c73ff] hover:-translate-y-px">
+                    Profil módosítása
+                </button>
+                <button type="button"
+                    class="px-6 py-[0.7rem] rounded bg-transparent border border-[#222] text-[#888] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:border-[#c0392b] hover:text-[#c0392b] hover:-translate-y-px">
+                    Fiók törlése
+                </button>
             </div>
         </div>
 
-        <div class="vehicles-card">
-            <h3>Járműveid</h3>
-            <table class="vehicle-table">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+            <div class="bg-[#121212] border border-[#222] rounded-lg p-6">
+                <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#888] mb-4">Személyes adatok</div>
+                <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
+                    <span class="text-[#888]">Felhasználónév</span>
+                    <span class="text-[#5046E6]">{{ Auth::user()->username }}</span>
+                </div>
+                <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
+                    <span class="text-[#888]">Teljes név</span>
+                    <span>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</span>
+                </div>
+                <div class="flex justify-between items-center py-3 text-[0.88rem]">
+                    <span class="text-[#888]">E-mail cím</span>
+                    <span>{{ Auth::user()->email }}</span>
+                </div>
+            </div>
+
+            <div class="bg-[#121212] border border-[#222] rounded-lg p-6">
+                <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#888] mb-4">Fiók állapot</div>
+                <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
+                    <span class="text-[#888]">Státusz</span>
+                    <span class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#4caf7d] inline-block"></span>
+                        Aktív
+                    </span>
+                </div>
+                <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
+                    <span class="text-[#888]">Jogosultság</span>
+                    <span>{{ Auth::user()->is_admin ? 'Adminisztrátor' : 'Felhasználó' }}</span>
+                </div>
+                <div class="flex justify-between items-center py-3 text-[0.88rem]">
+                    <span class="text-[#888]">Regisztráció</span>
+                    <span>{{ Auth::user()->created_at->format('Y. m. d.') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-[#121212] border border-[#222] rounded-lg p-6">
+            <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#888] mb-4">Járműveid</div>
+            <table class="w-full border-collapse">
                 <thead>
                     <tr>
-                        <th>Gyártmány</th>
-                        <th>Modell</th>
-                        <th>Rendszám</th>
+                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Gyártmány</th>
+                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Modell</th>
+                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Rendszám</th>
+                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Évjárat</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                    </tr>
-                    <tr>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
+                    <tr class="hover:bg-[#1a1a1a] transition-colors duration-150">
+                        <td class="px-4 py-3 border-b border-[#222] text-[#555] italic text-sm" colspan="4">
+                            Még nem adtál hozzá járművet.
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
     </div>
 </x-layout>
