@@ -1,4 +1,6 @@
 <x-layout>
+    <x-navbar>
+    </x-navbar>
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -431,7 +433,7 @@
             <div class="action-desc">Szerviz időpont kérése</div>
         </div>
     </a>
-    <a href="#" class="action-card" title="Hamarosan...">
+    <a href="{{ route('servicelog.index') }}" class="action-card" title="Hamarosan...">
         <div class="action-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
@@ -456,7 +458,7 @@
             <div class="action-desc">Aktív javítások állapota</div>
         </div>
     </a>
-    <a href="#" class="action-card" title="Hamarosan...">
+    <a href="{{ route('profile.index') }}" class="action-card">
         <div class="action-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>

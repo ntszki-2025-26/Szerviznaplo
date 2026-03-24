@@ -12,12 +12,15 @@ use App\Http\Controllers\MechanicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicelogController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('login', function () {
     return view('login');
 })->name('login');
+Route::get('servicelog', [ServicelogController::class, 'index'])->name('servicelog.index');
 
 Route::post('login', [LoginController::class, 'login'])
     ->name('login.attempt');
@@ -32,6 +35,11 @@ Route::post('logout', function (Request $request) {
 Route::view('register', 'register')->name('register');
 Route::post('register', [RegisterController::class, 'register'])
     ->name('register.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 Route::middleware('auth')->group(function () {
 

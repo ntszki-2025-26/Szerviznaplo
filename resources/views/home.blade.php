@@ -1,4 +1,6 @@
 <x-layout>
+    <x-navbar>
+    </x-navbar>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700;900&family=Barlow:wght@300;400;500&display=swap');
 
