@@ -2,7 +2,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 
-<header class="flex items-center justify-between px-12 py-5 border-b border-[#222] bg-[#121212]">
+<header class="flex items-center justify-between px-12 py-10 border-b border-[#222] bg-[#121212]">
 
     <a href="{{ route('home') }}"
        class="font-['Barlow_Condensed'] font-bold text-[1.3rem] tracking-[0.08em] uppercase no-underline text-[#f0ede8]">

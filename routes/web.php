@@ -38,8 +38,8 @@ Route::post('register', [RegisterController::class, 'register'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    });
 
 Route::middleware('auth')->group(function () {
 

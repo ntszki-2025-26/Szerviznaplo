@@ -1,4 +1,4 @@
 <x-layout>
-    <x-navbar>
+    <x-navbar title="Szerviznapló">
     </x-navbar>
 </x-layout>

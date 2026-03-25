@@ -1,9 +1,20 @@
-blade
-
 <x-layout>
     <x-navbar title="Profilom" />
 
     <div class="max-w-[1000px] mx-auto px-8 py-12">
+
+        @if(session('success'))
+            <div class="mb-6 px-4 py-3 rounded border border-[#4caf7d] bg-[#4caf7d]/10 text-[#4caf7d] text-sm">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="mb-6 px-4 py-3 rounded border border-[#c0392b] bg-[#c0392b]/10 text-[#c0392b] text-sm">
+                @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
 
         <div class="mb-10 pb-6 border-b border-[#222]">
             <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#5046E6] mb-1">Fiók</div>
@@ -13,7 +24,6 @@ blade
         </div>
 
         <div class="flex flex-wrap bg-[#121212] border border-[#222] rounded-lg p-8 mb-6 gap-8 items-center">
-
             <div class="flex items-center gap-6 flex-1 min-w-[250px]">
                 <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#5046E6] to-[#7c73ff] flex items-center justify-center font-['Barlow_Condensed'] font-bold text-[1.8rem] text-[#0a0a0a] shrink-0">
                     {{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}
@@ -22,17 +32,14 @@ blade
                     <div class="text-2xl font-bold">
                         {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
                     </div>
-                    <div class="text-[0.85rem] text-[#888]">
-                        {{ Auth::user()->email }}
-                    </div>
+                    <div class="text-[0.85rem] text-[#888]">{{ Auth::user()->email }}</div>
                     <div class="text-[0.75rem] text-[#888] tracking-[0.1em] uppercase mt-1">
                         {{ Auth::user()->is_admin ? 'Adminisztrátor' : 'Felhasználó' }}
                     </div>
                 </div>
             </div>
-
             <div class="flex gap-3 flex-wrap">
-                <button type="button"
+                <button type="button" onclick="document.getElementById('modal').classList.remove('hidden')"
                     class="px-6 py-[0.7rem] rounded bg-[#5046E6] text-[#0a0a0a] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:bg-[#7c73ff] hover:-translate-y-px">
                     Profil módosítása
                 </button>
@@ -44,7 +51,6 @@ blade
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-
             <div class="bg-[#121212] border border-[#222] rounded-lg p-6">
                 <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#888] mb-4">Személyes adatok</div>
                 <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
@@ -60,14 +66,12 @@ blade
                     <span>{{ Auth::user()->email }}</span>
                 </div>
             </div>
-
             <div class="bg-[#121212] border border-[#222] rounded-lg p-6">
                 <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#888] mb-4">Fiók állapot</div>
                 <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
                     <span class="text-[#888]">Státusz</span>
                     <span class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[#4caf7d] inline-block"></span>
-                        Aktív
+                        <span class="w-2 h-2 rounded-full bg-[#4caf7d] inline-block"></span>Aktív
                     </span>
                 </div>
                 <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
@@ -103,4 +107,49 @@ blade
         </div>
 
     </div>
+
+    <div id="modal" class="{{ $errors->any() ? '' : 'hidden' }} fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.getElementById('modal').classList.add('hidden')"></div>
+        <div class="relative z-10 bg-[#121212] border border-[#222] rounded-lg w-full max-w-md mx-4 p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#5046E6] mb-1">Fiók</div>
+                    <h2 class="font-['Barlow_Condensed'] font-bold text-2xl uppercase tracking-wide">Profil módosítása</h2>
+                </div>
+                <button onclick="document.getElementById('modal').classList.add('hidden')"
+                    class="text-[#888] hover:text-[#f0ede8] transition-colors text-xl leading-none">✕</button>
+            </div>
+            <form method="POST" action="{{ route('profile.update') }}" class="flex flex-col gap-5">
+                @csrf
+                @method('PATCH')
+                <div class="flex flex-col gap-1">
+                    <label class="text-[0.72rem] tracking-[0.15em] uppercase text-[#888]">Felhasználónév</label>
+                    <input type="text" name="username" value="{{ Auth::user()->username }}"
+                        class="bg-[#0a0a0a] border border-[#222] rounded px-4 py-3 text-[#f0ede8] text-sm focus:outline-none focus:border-[#5046E6] transition-colors" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[0.72rem] tracking-[0.15em] uppercase text-[#888]">Új jelszó</label>
+                    <input type="password" name="password" placeholder="Hagyd üresen, ha nem változtatod"
+                        class="bg-[#0a0a0a] border border-[#222] rounded px-4 py-3 text-[#f0ede8] text-sm placeholder-[#555] focus:outline-none focus:border-[#5046E6] transition-colors" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[0.72rem] tracking-[0.15em] uppercase text-[#888]">Jelszó megerősítése</label>
+                    <input type="password" name="password_confirmation" placeholder="Ismételd meg az új jelszót"
+                        class="bg-[#0a0a0a] border border-[#222] rounded px-4 py-3 text-[#f0ede8] text-sm placeholder-[#555] focus:outline-none focus:border-[#5046E6] transition-colors" />
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="submit"
+                        class="flex-1 px-6 py-3 rounded bg-[#5046E6] text-[#0a0a0a] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:bg-[#7c73ff] hover:-translate-y-px">
+                        Mentés
+                    </button>
+                    <button type="button" onclick="document.getElementById('modal').classList.add('hidden')"
+                        class="px-6 py-3 rounded bg-transparent border border-[#222] text-[#888] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:border-[#888] hover:text-[#f0ede8]">
+                        Mégse
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
 </x-layout>
