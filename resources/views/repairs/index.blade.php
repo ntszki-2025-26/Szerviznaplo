@@ -1,32 +1,5 @@
 <x-layout sitecss="repairs">
-    <x-navbar title="Javítások">
-    </x-navbar>
-<style>
-
-</style>
-
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
-        <div class="topbar-divider"></div>
-        <div class="breadcrumb">
-            <a href="{{ route('dashboard') }}">Dashboard</a>
-            <span>/</span>
-            <span class="current">Javítások</span>
-        </div>
-    </div>
-    <div class="topbar-right">
-        <div style="display:flex;align-items:center;gap:0.75rem">
-            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}</div>
-            <span style="font-size:0.88rem;font-weight:500">{{ Auth::user()->username }}</span>
-        </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="btn-logout">Kilépés</button>
-        </form>
-    </div>
-</div>
-
+    <x-navbar title="Javítások" />
 <div class="page-wrap">
 
     <div class="page-header">

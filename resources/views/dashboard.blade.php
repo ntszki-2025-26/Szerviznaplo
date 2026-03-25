@@ -1,29 +1,5 @@
 <x-layout sitecss="dashboard">
-    <x-navbar />
-<div class="topbar">
-    <a href="{{ route('home') }}" class="topbar-logo">
-        Szerviz<span>napló</span> <span class="sep">/ Irányítópult</span>
-    </a>
-    <div class="topbar-right">
-        <div class="user-badge">
-            
-            {{ Auth::user()->first_name ?? Auth::user()->username }}
-        </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="btn-logout">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/>
-                    <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                Kilépés
-            </button>
-        </form>
-    </div>
-</div>
-
-
+    <x-navbar title="dashboard" />
 <div class="dashboard">
 
     

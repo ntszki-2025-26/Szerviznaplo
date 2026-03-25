@@ -1,6 +1,5 @@
 <x-layout sitecss="vehicles">
-    <x-navbar title="Járműveim">
-    </x-navbar>
+    <x-navbar title="Járműveim" />
 <div class="modal-backdrop {{ $errors->any() ? 'open' : '' }}" id="addModal">
     <div class="modal">
         <div class="modal-header">

@@ -1,32 +1,45 @@
 @props(['title' => null])
 
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700;900&family=Barlow:wght@300;400;500&display=swap"
+    rel="stylesheet">
 
-<header class="flex items-center justify-between px-12 py-10 border-b border-[#222] bg-[#121212]">
+<header>
+    @if (Auth::user() != null)
 
-    <a href="{{ route('home') }}"
-       class="font-['Barlow_Condensed'] font-bold text-[1.3rem] tracking-[0.08em] uppercase no-underline text-[#f0ede8]">
-        Szerviz<span class="text-[#5046E6]">Napló</span>
-        @if($title)
-            <span class="text-[#888] font-light text-[1rem]"> / {{ $title }}</span>
-        @endif
-    </a>
+        <div class="topbar">
+            <div class="topbar-left">
+                <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
+                <div class="topbar-divider"></div>
+                <div class="breadcrumb">
+                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <span>/</span>
+                    <span class="current">{{ $title }}</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div style="display:flex;align-items:center;gap:0.75rem">
+                    <div class="user-avatar">
+                        {{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}
+                    </div>
+                    <span class="user-name">{{ Auth::user()->username }}</span>
+                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-logout">Kilépés</button>
+                </form>
+            </div>
 
-    <div class="flex items-center gap-6">
+        </div>
+    @else
+        <div class="topbar">
+            <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
+            <nav class="topbar-nav">
+                <a href="{{ route('login') }}" class="btn-outline">Bejelentkezés</a>
+                <a href="{{ route('register') }}" class="btn-accent">Regisztráció</a>
+            </nav>
+        </div>
 
+    @endif
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit"
-                class="inline-flex items-center gap-[0.4rem] bg-transparent border border-[#222] text-[#888] font-['Barlow'] text-[0.8rem] tracking-[0.1em] uppercase px-4 py-[0.45rem] rounded-sm cursor-pointer transition-colors duration-200 hover:border-[#c0392b] hover:text-[#c0392b]">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-                    <polyline points="16 17 21 12 16 7"/>
-                    <line x1="21" y1="12" x2="9" y2="12"/>
-                </svg>
-                Kilépés
-            </button>
-        </form>
-
-    </div>
 </header>

@@ -1,28 +1,5 @@
 <x-layout sitecss="mechanic_faults">
-
-<div class="topbar">
-    <div class="topbar-left">
-        <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
-        <span class="role-badge">Szerelő</span>
-        <div class="topbar-divider"></div>
-        <nav class="topbar-nav">
-            <a href="{{ route('mechanic.dashboard') }}">Dashboard</a>
-            <a href="{{ route('mechanic.repairs') }}">Javítások</a>
-            <a href="{{ route('mechanic.faults') }}" class="active">Hibák</a>
-            <a href="{{ route('mechanic.appointments') }}">Időpontok</a>
-        </nav>
-    </div>
-    <div class="topbar-right">
-        <div style="display:flex;align-items:center;gap:0.75rem">
-            <div class="user-avatar">{{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}</div>
-            <span style="font-size:0.88rem;font-weight:500">{{ Auth::user()->username }}</span>
-        </div>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="btn-logout">Kilépés</button>
-        </form>
-    </div>
-</div>
+ <x-navbar title="faults" />
 
 <div class="page-wrap">
     <div class="page-header">
