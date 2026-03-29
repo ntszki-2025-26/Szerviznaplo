@@ -25,7 +25,8 @@
 
         <div class="flex flex-wrap bg-[#121212] border border-[#222] rounded-lg p-8 mb-6 gap-8 items-center">
             <div class="flex items-center gap-6 flex-1 min-w-[250px]">
-                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#5046E6] to-[#7c73ff] flex items-center justify-center font-['Barlow_Condensed'] font-bold text-[1.8rem] text-[#0a0a0a] shrink-0">
+                <div
+                    class="w-20 h-20 rounded-full bg-gradient-to-br from-[#5046E6] to-[#7c73ff] flex items-center justify-center font-['Barlow_Condensed'] font-bold text-[1.8rem] text-[#0a0a0a] shrink-0">
                     {{ strtoupper(substr(Auth::user()->first_name ?? Auth::user()->username, 0, 1)) }}
                 </div>
                 <div class="flex flex-col gap-1">
@@ -42,10 +43,6 @@
                 <button type="button" onclick="document.getElementById('modal').classList.remove('hidden')"
                     class="px-6 py-[0.7rem] rounded bg-[#5046E6] text-[#0a0a0a] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:bg-[#7c73ff] hover:-translate-y-px">
                     Profil módosítása
-                </button>
-                <button type="button"
-                    class="px-6 py-[0.7rem] rounded bg-transparent border border-[#222] text-[#888] font-['Barlow_Condensed'] font-semibold text-sm uppercase tracking-[0.08em] cursor-pointer transition-all duration-200 hover:border-[#c0392b] hover:text-[#c0392b] hover:-translate-y-px">
-                    Fiók törlése
                 </button>
             </div>
         </div>
@@ -75,8 +72,8 @@
                     </span>
                 </div>
                 <div class="flex justify-between items-center py-3 border-b border-[#222] text-[0.88rem]">
-                    <span class="text-[#888]">Jogosultság</span>
-                    <span>{{ Auth::user()->is_admin ? 'Adminisztrátor' : 'Felhasználó' }}</span>
+                    <span class="text-[#888]">Járművek száma</span>
+                    <span>{{ $vehicles->count() }}</span>
                 </div>
                 <div class="flex justify-between items-center py-3 text-[0.88rem]">
                     <span class="text-[#888]">Regisztráció</span>
@@ -90,18 +87,37 @@
             <table class="w-full border-collapse">
                 <thead>
                     <tr>
-                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Gyártmány</th>
-                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Modell</th>
-                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Rendszám</th>
-                        <th class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">Évjárat</th>
+                        <th
+                            class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">
+                            Gyártmány</th>
+                        <th
+                            class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">
+                            Modell</th>
+                        <th
+                            class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">
+                            Rendszám</th>
+                        <th
+                            class="px-4 py-3 border-b border-[#222] text-left text-[#888] text-[0.75rem] uppercase tracking-[0.1em] font-medium">
+                            Évjárat</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="hover:bg-[#1a1a1a] transition-colors duration-150">
-                        <td class="px-4 py-3 border-b border-[#222] text-[#555] italic text-sm" colspan="4">
-                            Még nem adtál hozzá járművet.
-                        </td>
-                    </tr>
+                    @forelse($vehicles as $vehicle)
+                        <tr class="hover:bg-[#1a1a1a] transition-colors duration-150">
+                            <td class="px-4 py-3 border-b border-[#222] text-sm text-[#f0ede8]">{{ $vehicle->brand }}</td>
+                            <td class="px-4 py-3 border-b border-[#222] text-sm text-[#f0ede8]">{{ $vehicle->model }}</td>
+                            <td class="px-4 py-3 border-b border-[#222] text-sm text-[#f0ede8] font-mono">
+                                {{ $vehicle->license_plate }}
+                            </td>
+                            <td class="px-4 py-3 border-b border-[#222] text-sm text-[#f0ede8]">{{ $vehicle->year }}</td>
+                        </tr>
+                    @empty
+                        <tr class="hover:bg-[#1a1a1a] transition-colors duration-150">
+                            <td class="px-4 py-3 border-b border-[#222] text-[#555] italic text-sm" colspan="4">
+                                Még nem adtál hozzá járművet.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -109,12 +125,14 @@
     </div>
 
     <div id="modal" class="{{ $errors->any() ? '' : 'hidden' }} fixed inset-0 z-50 flex items-center justify-center">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="document.getElementById('modal').classList.add('hidden')"></div>
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onclick="document.getElementById('modal').classList.add('hidden')"></div>
         <div class="relative z-10 bg-[#121212] border border-[#222] rounded-lg w-full max-w-md mx-4 p-8">
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <div class="text-[0.7rem] tracking-[0.2em] uppercase text-[#5046E6] mb-1">Fiók</div>
-                    <h2 class="font-['Barlow_Condensed'] font-bold text-2xl uppercase tracking-wide">Profil módosítása</h2>
+                    <h2 class="font-['Barlow_Condensed'] font-bold text-2xl uppercase tracking-wide">Profil módosítása
+                    </h2>
                 </div>
                 <button onclick="document.getElementById('modal').classList.add('hidden')"
                     class="text-[#888] hover:text-[#f0ede8] transition-colors text-xl leading-none">✕</button>
@@ -150,6 +168,6 @@
             </form>
         </div>
     </div>
-    
+
 
 </x-layout>
