@@ -22,7 +22,7 @@ class RegisterController extends Controller
 
         $user = User::create([
             'username'   => $validatedData['username'],
-            'email'      => $validatedData['email'],
+            'email'      => strtolower($validatedData['email']),
             'first_name' => $validatedData['first_name'],
             'last_name'  => $validatedData['last_name'],
             'password' => Hash::make($validatedData['password']),        ]);

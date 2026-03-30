@@ -13,7 +13,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        /** @var User $user */
+        /** @var Vehicle $vehicle */
         $vehicles = Vehicle::where('user_id', $user->id)->get();
         return view('profile.index', compact('user', 'vehicles'));
     }

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-        'email' => 'User@gmail.com',
+        'email' => 'user@gmail.com',
         'password' => Hash::make('User12345'),
         'username' => 'User',
         'first_name' => 'User',
@@ -27,12 +27,12 @@ class DatabaseSeeder extends Seeder
         'role' => 'user',
         ]);
         User::factory()->create([
-        'email' => 'Admin@gmail.com',
+        'email' => 'admin@gmail.com',
         'password' => Hash::make('Admin12345'),
         'username' => 'Admin',
         'first_name' => 'Admin',
         'last_name' => 'Admin',
-        'role' => 'admin',
+        'role' => '2',
         ]);
     }
 }

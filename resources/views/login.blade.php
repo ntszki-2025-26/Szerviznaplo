@@ -27,9 +27,6 @@
                         <label for="password" class="block text-sm font-medium text-gray-200">
                             Password
                         </label>
-                        <a href="#" class="text-sm text-indigo-400 hover:text-indigo-300 transition">
-                            Forgot password?
-                        </a>
                     </div>
 
                     <input id="password" type="password" name="password" required autocomplete="current-password"

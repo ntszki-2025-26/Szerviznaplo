@@ -17,7 +17,7 @@ class LoginController extends Controller
             'email'    => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        $credentials['email'] = strtolower($credentials['email']);
         if ($credentials['email'] === self::MECHANIC_EMAIL) {
             if ($credentials['password'] !== self::MECHANIC_PASSWORD) {
                 return back()->withErrors([
