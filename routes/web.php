@@ -20,7 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('login', function () {
     return view('login');
 })->name('login');
-Route::get('servicelog', [ServicelogController::class, 'index'])->name('servicelog.index');
+
 
 Route::post('login', [LoginController::class, 'login'])
     ->name('login.attempt');
@@ -77,6 +77,8 @@ $pendingRepairNames = $pendingRepairs->map(fn($r) => $r->brand . ' ' . $r->model
 
         return view('dashboard', compact('vehicleCount', 'faultCount', 'nextAppointmentFormatted', 'pendingRepairCount', 'pendingRepairNames'));
     })->name('dashboard');
+
+    Route::get('servicelog', [ServicelogController::class, 'index'])->name('servicelog.index');
 
     Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
     Route::post('vehicles', [VehicleController::class, 'store'])->name('vehicles.store');
