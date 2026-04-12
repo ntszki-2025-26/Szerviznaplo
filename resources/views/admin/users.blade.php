@@ -1,4 +1,4 @@
-<<x-layout>
+<x-layout>
 <x-navbar title="Felhasználók kezelése" />
 <div class="max-w-6xl mx-auto px-6 py-8">
 
@@ -27,6 +27,7 @@
                     <th class="text-left px-6 py-3">Felhasználó</th>
                     <th class="text-left px-6 py-3">Email</th>
                     <th class="text-left px-6 py-3">Szerepkör</th>
+                    <th class="text-left px-6 py-3">Műveletek</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -46,8 +47,7 @@
                                 <select
                                     name="role"
                                     onchange="this.form.submit()"
-                                    class="text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer
-                                    {{ $user->role === App\Models\User::ROLE_ADMIN ? 'text-indigo-600 font-semibold' : '' }}"
+                                    class="text-sm rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
                                 >
                                     <option value="{{ App\Models\User::ROLE_USER }}"
                                         @selected($user->role === App\Models\User::ROLE_USER)>
@@ -56,6 +56,7 @@
                                     <option value="{{ App\Models\User::ROLE_MECHANIC }}"
                                         @selected($user->role === App\Models\User::ROLE_MECHANIC)>
                                         🔧 Mechanic
+                                    </option>
                                     <option value="{{ App\Models\User::ROLE_ADMIN }}"
                                         @selected($user->role === App\Models\User::ROLE_ADMIN)>
                                         🛡️ Admin
@@ -63,10 +64,21 @@
                                 </select>
                             </form>
                         </td>
+                        <td class="px-6 py-4">
+                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
+                                  onsubmit="return confirm('Biztosan törlöd {{ $user->username }} profilját?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="text-xs text-red-400 border border-red-400/30 px-3 py-1.5 rounded-lg hover:bg-red-400/10 transition-colors">
+                                    Törlés
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-12 text-center text-gray-400">Nincs felhasználó</td>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-400">Nincs felhasználó</td>
                     </tr>
                 @endforelse
             </tbody>

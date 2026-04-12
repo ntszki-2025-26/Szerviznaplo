@@ -115,5 +115,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [AdminController::class, 'index'])->name('admin.users.index');
     Route::post('/users/{user}/role', [AdminController::class, 'updateRole'])->name('admin.users.role');
     });
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
 
 });

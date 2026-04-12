@@ -30,4 +30,9 @@ class AdminController extends Controller
         'userCount'     => User::where('role', 0)->count(),
     ]);
     }
+    public function destroy(User $user)
+    {
+    $user->delete();
+    return back()->with('success', 'Felhasználó törölve!');
+    }
 }

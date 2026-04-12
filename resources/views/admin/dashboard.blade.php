@@ -1,6 +1,5 @@
 <x-layout>
-<x-navbar title="dashboard" />
-
+<x-navbar title="Adminisztrációs panel" />
 <div class="max-w-6xl mx-auto px-6 py-12">
 
     <div class="mb-10">

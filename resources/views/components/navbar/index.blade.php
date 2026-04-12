@@ -1,18 +1,16 @@
-@props(['title' => null])
 
+@props(['title' => null])
 <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;700;900&family=Barlow:wght@300;400;500&display=swap"
     rel="stylesheet">
-
 <header>
     @if (Auth::user() != null)
-
         <div class="topbar">
             <div class="topbar-left">
-                <a href="{{ route('home') }}" class="topbar-logo">Szerviz<span>napló</span></a>
+                <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('dashboard') }}" class="topbar-logo">Szerviz<span>napló</span></a>
                 <div class="topbar-divider"></div>
                 <div class="breadcrumb">
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('dashboard') }}">Dashboard</a>
                     <span>/</span>
                     <span class="current">{{ $title }}</span>
                 </div>
@@ -29,7 +27,6 @@
                     <button type="submit" class="btn-logout">Kilépés</button>
                 </form>
             </div>
-
         </div>
     @else
         <div class="topbar">
@@ -39,7 +36,5 @@
                 <a href="{{ route('register') }}" class="btn-accent">Regisztráció</a>
             </nav>
         </div>
-
     @endif
-
 </header>
