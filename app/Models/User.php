@@ -12,6 +12,9 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const ROLE_USER     = 0;
+    const ROLE_MECHANIC = 1;
+    const ROLE_ADMIN    = 2;
     /**
      * The attributes that are mass assignable.
      *
@@ -48,5 +51,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function isAdmin(): bool {
+    return (int) $this->role === self::ROLE_ADMIN;
+    }
+ 
 }
 
