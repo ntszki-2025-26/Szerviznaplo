@@ -31,11 +31,11 @@ class LoginController extends Controller
 
             $role = Auth::user()->role;
 
-            if ($role === 2) {
+            if ($role == "2") {
                 return redirect()->intended('admin/dashboard');
             }
 
-            if ($role === 1) {
+            if ($role == "1") {
                 return redirect()->intended('mechanic/dashboard');
             }
 

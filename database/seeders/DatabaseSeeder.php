@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
         'username' => 'User',
         'first_name' => 'User',
         'last_name' => 'User',
-        'role' => 'user',
+        'role' => '0',
         ]);
         User::factory()->create([
         'email' => 'admin@gmail.com',
@@ -34,5 +35,28 @@ class DatabaseSeeder extends Seeder
         'last_name' => 'Admin',
         'role' => '2',
         ]);
+
+        User::factory()->create([
+        'email' => 'mechanic@gmail.com',
+        'password' => Hash::make('Mechanic12345'),
+        'username' => 'Mechanic',
+        'first_name' => 'Mechanic',
+        'last_name' => 'Mechanic',
+        'role' => '1',
+        ]);
+
+        DB::table('status')->insert([
+            ['status' => 'Függőben']
+        ]);
+        DB::table('status')->insert([
+            ['status' => 'Folyamatban']
+        ]);
+       
+        DB::table('status')->insert([
+            ['status' => 'Kész']
+        ]);
+       
+       
+        
     }
 }
