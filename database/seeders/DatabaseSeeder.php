@@ -28,14 +28,6 @@ class DatabaseSeeder extends Seeder
         'role' => '0',
         ]);
         User::factory()->create([
-        'email' => 'mechanic@gmail.com',
-        'password' => Hash::make('Mechanic12345'),
-        'username' => 'Mechanic',
-        'first_name' => 'Mechanic',
-        'last_name' => 'Mechanic',
-        'role' => '1',
-        ]);
-        User::factory()->create([
         'email' => 'admin@gmail.com',
         'password' => Hash::make('Admin12345'),
         'username' => 'Admin',
@@ -43,12 +35,28 @@ class DatabaseSeeder extends Seeder
         'last_name' => 'Admin',
         'role' => '2',
         ]);
+
+        User::factory()->create([
+        'email' => 'mechanic@gmail.com',
+        'password' => Hash::make('Mechanic12345'),
+        'username' => 'Mechanic',
+        'first_name' => 'Mechanic',
+        'last_name' => 'Mechanic',
+        'role' => '1',
+        ]);
+
         DB::table('status')->insert([
-        ['status' => 'Függőben'],
-        ['status' => 'Visszaigazolt'],
-        ['status' => 'Folyamatban'],
-        ['status' => 'Elvégezve'],
-        ['status' => 'Lemondva'],
-    ]);
+            ['status' => 'Függőben']
+        ]);
+        DB::table('status')->insert([
+            ['status' => 'Folyamatban']
+        ]);
+       
+        DB::table('status')->insert([
+            ['status' => 'Kész']
+        ]);
+       
+       
+        
     }
 }
