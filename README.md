@@ -1,7 +1,7 @@
 # Szerviznaplo
 Szervíznapló
-A Szerviznapló projekt célja, hogy egy modern, webalapú alkalmazással kiváltsa ezeket az elavult megoldásokat. A rendszer egyetlen, egységes felületen keresztül biztosítja az összes érintett fél számára a szükséges funkciókat: az ügyfelek kezelhetik járműveiket és nyomon követhetik azok szervizhistóriáját, a szerelők valós időben frissíthetik a javítások állapotát, az adminisztrátorok pedig felügyelhetik az egész rendszer működését.
-Mivel a projektet php laravelben készítettük el így néhány parancsot lekell futtatni a terminálba. 
+A Szerviznapló projekt célja, hogy egy modern, webalapú alkalmazással kiváltsa az elavult megoldásokat. A rendszer egyetlen, egységes felületen keresztül biztosítja az összes érintett fél számára a szükséges funkciókat: az ügyfelek kezelhetik járműveiket és nyomon követhetik azok szervizelőzményeit. A szerelők valós időben frissíthetik a javítások állapotát, az adminisztrátorok pedig felügyelhetik az egész rendszer működését.
+Mivel a projektet php laravelben készítettük el így néhány parancsot le kell futtatni a terminálba. 
 ## Telepítés és indítás
 
 ### Követelmények
